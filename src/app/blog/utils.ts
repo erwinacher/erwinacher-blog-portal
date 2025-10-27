@@ -18,12 +18,12 @@ function getMDXData(p: string) {
     let mdxFiles = getMDXFiles(p);
 
     return mdxFiles.map((file) => {
-        let { data: metadata, content } = radMDXFile(path.join(p, file));
+        let { data: metadata, content } = readMDXFile(path.join(p, file));
         let slug = path.basename(file, path.extname(file));
 
         return {
             metadata,
-            slug, 
+            slug,
             content,
         };
     });
@@ -38,7 +38,7 @@ export function formatDate(date: string, includeRelative = false) {
     if (!date.includes('T')) {
         date = `${date}T00:00:00`;
     }
-    
+
     let targetDate = new Date(date);
 
     let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
@@ -58,7 +58,7 @@ export function formatDate(date: string, includeRelative = false) {
         formattedDate = "Today";
     }
 
-    let fullDate = targetDate.toLocaleString("en-us"), {
+    let fullDate = targetDate.toLocaleString("en-us", {
         month: "long",
         day: "numeric",
         year: "numeric",
